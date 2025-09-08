@@ -4,25 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <title>ร้านเสริมสวยมุกซาลอน</title>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        * {
+            font-family: 'Itim', cursive;
+            font-size: 18px;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #fdf5f5;
+            background: linear-gradient(135deg, #ffd6e7 0%, #c8f4ff 100%);
             margin: 0;
             padding: 0;
             background-size: cover;
             background-position: center;
+            font-size: 18px;
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill-opacity="0.05" fill="white" width="50" height="50" /><rect fill-opacity="0.05" fill="white" x="50" y="50" width="50" height="50" /></svg>');
+            z-index: -1;
         }
 
         header {
-            background: #000000;
+            background: rgba(233, 235, 213, 0.8);
             color: white;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 30px rgba(95, 95, 95, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .header-content {
@@ -30,31 +56,86 @@
             text-align: center;
         }
 
+        .header-content h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(112, 112, 112, 0.411);
+            background: linear-gradient(45deg, #9ea0ff, #000000e8, #33b5d6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         nav {
             display: flex;
             justify-content: center;
-            background: #d0ccff;
-            padding: 10px;
+            background: rgba(208, 204, 255, 0.9);
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         nav button {
-            background: none;
+            background: rgba(255, 255, 255, 0.3);
             border: none;
-            padding: 10px 20px;
+            padding: 15px 25px;
             margin: 0 5px;
             cursor: pointer;
             font-weight: bold;
             color: #000000;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: all 0.5s ease;
+        }
+
+        nav button:hover::before {
+            left: 100%;
+        }
+
+        nav button:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
 
         nav button.active {
-            border-bottom: 3px solid #ff6666;
+            background: rgba(255, 102, 102, 0.7);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 102, 102, 0.4);
         }
 
         .page {
             display: none;
             padding: 20px;
             text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .activePage {
@@ -62,60 +143,146 @@
         }
 
         .box {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 25px;
             margin: 20px auto;
-            border-radius: 12px;
+            border-radius: 20px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            z-index: -1;
+            background: linear-gradient(45deg, #9eb5ff, #7566ff, #33a8d6, #c8f4ff);
+            background-size: 400% 400%;
+            animation: gradientBorder 6s ease infinite;
+            border-radius: 25px;
+            opacity: 0.3;
+            filter: blur(15px);
+        }
+
+        @keyframes gradientBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
         input,
         select,
         button,
         textarea {
-            margin: 8px 0;
-            padding: 10px;
+            margin: 10px 0;
+            padding: 14px;
             width: 90%;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
             background: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-color: #ff9ecb;
         }
 
         button {
-            background: #33d641;
+            background: linear-gradient(45deg, #33d641, #2bc437);
             color: white;
             border: none;
             cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            padding: 14px 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(51, 214, 65, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        button:hover::after {
+            transform: translateY(0);
         }
 
         button:hover {
-            background: #b0226d;
+            background: linear-gradient(45deg, #2bc437, #25a82f);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(51, 214, 65, 0.4);
         }
 
         .stars span {
-            font-size: 24px;
+            font-size: 32px;
             cursor: pointer;
             color: #ddd;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            margin: 0 3px;
+            user-select: none;
+        }
+
+        .stars span:hover {
+            transform: scale(1.2);
         }
 
         .stars span.active {
             color: gold;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
         }
 
         img {
             max-width: 100%;
-            border-radius: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
         }
 
         .message {
-            font-size: 22px;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #000000;
             margin-top: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .admin-only {
@@ -128,30 +295,51 @@
 
         .review-item {
             text-align: left;
-            border-bottom: 1px solid #eee;
-            padding: 10px 0;
-            background: rgba(255, 255, 255, 0.7);
-            margin: 10px 0;
-            border-radius: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
             padding: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            margin: 10px 0;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .review-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         .review-name {
             font-weight: bold;
+            font-size: 1.1rem;
+            color: #ff6666;
         }
 
         .review-stars {
             color: gold;
+            font-size: 1.2rem;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
         }
 
         .login-btn {
-            background: #ff3333;
+            background: linear-gradient(45deg, #ff3333, #ff6666);
             color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 12px 20px;
+            border-radius: 50px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(255, 51, 51, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 51, 51, 0.4);
         }
 
         .logout-btn {
@@ -159,8 +347,8 @@
         }
 
         .line-icon {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             background: white;
             border-radius: 50%;
             display: inline-flex;
@@ -168,6 +356,7 @@
             align-items: center;
             color: #ff3333;
             font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .admin-panel {
@@ -187,24 +376,34 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
 
         .review-modal-content {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
             width: 90%;
-            max-width: 400px;
+            max-width: 500px;
             text-align: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.5);
+            font-size: 1.1rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            animation: modalAppear 0.4s ease;
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .delete-btn {
-            background: #ff3333;
+            background: linear-gradient(45deg, #ff3333, #ff6666);
             margin-left: 10px;
-            padding: 5px 10px;
-            font-size: 12px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            border-radius: 8px;
         }
 
         .service-item,
@@ -213,72 +412,111 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 5px 0;
-            padding: 8px;
+            margin: 8px 0;
+            padding: 12px;
             background: rgba(255, 255, 255, 0.6);
-            border-radius: 6px;
+            border-radius: 12px;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover,
+        .holiday-item:hover,
+        .promo-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateX(5px);
         }
 
         .promo-item {
             background: rgba(255, 255, 255, 0.7);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
+            padding: 18px;
+            margin: 12px 0;
+            border-radius: 15px;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .booking-item {
             background: rgba(255, 255, 255, 0.7);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
+            padding: 20px;
+            margin: 12px 0;
+            border-radius: 15px;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .booking-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
         #holidayList li,
         #servicesList li {
             background: rgba(255, 255, 255, 0.6);
-            padding: 8px;
-            border-radius: 6px;
-            margin: 5px 0;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 8px 0;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
         }
 
-        /* สไตล์สำหรับการตั้งค่า LINE */
+        #holidayList li:hover,
+        #servicesList li:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateX(5px);
+        }
+
         .line-config {
             background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 15px;
             margin: 15px 0;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
         .test-result {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
+            margin-top: 12px;
+            padding: 15px;
+            border-radius: 10px;
             display: none;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
         }
 
         .success {
-            background: #d4edda;
+            background: rgba(212, 237, 218, 0.8);
             color: #155724;
-            border: 1px solid #c3e6cb;
+            border: 1px solid rgba(195, 230, 203, 0.7);
         }
 
         .error {
-            background: #f8d7da;
+            background: rgba(248, 215, 218, 0.8);
             color: #721c24;
-            border: 1px solid #f5c6cb;
+            border: 1px solid rgba(245, 198, 203, 0.7);
         }
 
         .config-section {
             text-align: left;
             margin-bottom: 15px;
+            font-size: 1rem;
         }
 
         .instructions {
-            background: #e7f3ff;
-            padding: 15px;
-            border-radius: 8px;
+            background: rgba(231, 243, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
             margin: 15px 0;
             text-align: left;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
 
         .instructions ol {
@@ -286,7 +524,8 @@
         }
 
         .instructions li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 1rem;
         }
 
         .qr-code {
@@ -299,40 +538,258 @@
             border: 1px solid #ddd;
             padding: 10px;
             background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .line-login-btn {
             background: #06C755;
             color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 14px 20px;
+            border-radius: 10px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin: 10px 0;
+            gap: 10px;
+            margin: 12px 0;
             cursor: pointer;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .line-login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(6, 199, 85, 0.4);
         }
 
         .line-login-btn img {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
         }
 
         .redirect-uri-box {
-            background: #fff3cd;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
+            background: rgba(255, 243, 205, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 12px 0;
             word-break: break-all;
-            font-size: 14px;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
         }
-    </style>
-</head>
 
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .cute-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .thai-text {
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+            font-size: 1rem;
+        }
+
+        .cute-light {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: moveLight 15s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes moveLight {
+            0% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(200px, 150px) scale(1.2); }
+            50% { transform: translate(400px, 50px) scale(0.8); }
+            75% { transform: translate(600px, 200px) scale(1.1); }
+            100% { transform: translate(800px, 100px) scale(1); }
+        }
+
+        .webhook-instructions {
+            background: rgba(255, 245, 245, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            text-align: left;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #ff6666;
+        }
+        
+        .webhook-steps {
+            padding-left: 20px;
+        }
+        
+        .webhook-steps li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .webhook-image {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .webhook-image img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .highlight {
+            background-color: #ffff00;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            * {
+                font-size: 16px;
+            }
+            
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav button {
+                padding: 12px 18px;
+                font-size: 1rem;
+            }
+            
+            .box {
+                padding: 20px;
+            }
+            
+            input, select, button, textarea {
+                font-size: 16px;
+                padding: 14px;
+            }
+            
+            .cute-light {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            * {
+                font-size: 15px;
+            }
+            
+            .header-content h1 {
+                font-size: 1.6rem;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+            }
+            
+            nav button {
+                padding: 10px 14px;
+                margin: 3px;
+                font-size: 0.9rem;
+            }
+            
+            .box {
+                padding: 15px;
+                margin: 15px auto;
+            }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .ribbon {
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            transform: rotate(45deg);
+            background: linear-gradient(45deg, #ff9ecb, #ff6666);
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .quick-login {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .quick-login-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+     </style>
+</head>
 <body>
+    <div class="cute-light" style="top: 20%; left: 10%;"></div>
+    <div class="cute-light" style="top: 60%; left: 70%; width: 200px; height: 200px; animation-delay: -5s;"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- ปุ่มล็อกอินด่วน -->
+    <div class="quick-login">
+        <button class="quick-login-btn" onclick="quickLogin()">🔑</button>
+    </div>
+
     <header>
         <div class="header-content">
-            <h1>ร้านเสริมสวยมุกซาลอน ยินดีให้บริการค่ะ</h1>
+            <h1 class="cute-float">ร้านเสริมสวยมุกซาลอน ยินดีให้บริการค่ะ</h1>
         </div>
         <div class="admin-panel">
             <button id="loginBtn" class="login-btn" onclick="loginWithLine()">
@@ -356,9 +813,7 @@
     <div id="home" class="page activePage">
         <div class="box">
             <h2>บริการของทางร้าน</h2>
-            <ul id="servicesList" style="text-align:left; list-style-type: none; padding: 0;">
-                <!-- เนื้อหาจะถูกโหลดจาก localStorage -->
-            </ul>
+            <ul id="servicesList" style="text-align:left; list-style-type: none; padding: 0;"></ul>
             <div class="admin-only">
                 <h3>จัดการบริการ</h3>
                 <input type="text" id="newServiceName" placeholder="ชื่อบริการ">
@@ -379,9 +834,7 @@
     <div id="promo" class="page">
         <div class="box">
             <h2>โปรโมชั่น</h2>
-            <div id="promoContent">
-                <!-- เนื้อหาจะถูกโหลดจาก localStorage -->
-            </div>
+            <div id="promoContent"></div>
 
             <div class="admin-only">
                 <h3>จัดการโปรโมชัน</h3>
@@ -395,7 +848,6 @@
 
     <!-- หน้า Booking -->
     <div id="booking" class="page">
-        <!-- ฟอร์มกรอกข้อมูล -->
         <div class="box" id="formBox">
             <h2>กรอกข้อมูลลูกค้า</h2>
             <input type="text" id="name" placeholder="ชื่อของคุณ">
@@ -403,7 +855,6 @@
             <button onclick="goToCalendar()">ยืนยัน</button>
         </div>
 
-        <!-- ปฏิทิน -->
         <div class="box" id="calendarBox" style="display:none;">
             <h2>เลือกวันและเวลา</h2>
             <input type="date" id="date">
@@ -411,7 +862,6 @@
             <button onclick="reviewBooking()">ถัดไป</button>
         </div>
 
-        <!-- หน้าสรุป -->
         <div class="box" id="confirmBox" style="display:none;">
             <h2>ข้อมูลการจอง</h2>
             <p id="bookingInfo"></p>
@@ -425,13 +875,11 @@
     <div id="reviews" class="page">
         <div class="box">
             <h2>รีวิวจากลูกค้า</h2>
-            <div id="reviewsList">
-                <!-- รีวิวจะถูกแสดงที่นี่ -->
-            </div>
+            <div id="reviewsList"></div>
         </div>
     </div>
 
-    <!-- หน้าจัดการร้าน (สำหรับเจ้าของร้าน) -->
+    <!-- หน้าจัดการร้าน -->
     <div id="manage" class="page">
         <div class="box">
             <h2>จัดการร้าน</h2>
@@ -440,8 +888,7 @@
 
             <div class="box">
                 <h2>จัดการพื้นหลังร้าน</h2>
-                <input type="file" id="bgUpload" accept="image/*" style="display: none;"
-                    onchange="uploadBackground(event)">
+                <input type="file" id="bgUpload" accept="image/*" style="display: none;" onchange="uploadBackground(event)">
                 <button onclick="document.getElementById('bgUpload').click()">อัปโหลดพื้นหลังใหม่</button>
                 <button onclick="removeBackground()" class="delete-btn">ลบพื้นหลัง</button>
             </div>
@@ -456,36 +903,45 @@
                             <li>เลือก Channel ของคุณ (ประเภท Messaging API)</li>
                             <li>ไปที่แท็บ "Messaging API"</li>
                             <li>คัดลอก "Channel Access Token" วางในช่องด้านล่าง</li>
-                            <li>เพื่อหา User ID:
-                                <ol>
-                                    <li>เปิดแอป LINE ในโทรศัพท์</li>
-                                    <li>เพิ่มบอทของคุณเป็นเพื่อน (โดยการสแกน QR Code จากหน้า Channel)</li>
-                                    <li>ส่งข้อความใดๆ ไปให้บอท</li>
-                                    <li>กดปุ่ม "ดึง User ID อัตโนมัติ" ด้านล่าง</li>
-                                </ol>
-                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="userid-help">
+                        <h4>📋 วิธีหา User ID</h4>
+                        <p><strong>หากไม่พบตาราง Webhook event list ให้ใช้วิธีใดวิธีหนึ่งต่อไปนี้:</strong></p>
+                        
+                        <h4>วิธีที่ 1: ใช้ LINE Official Account Manager</h4>
+                        <ol>
+                            <li>ไปที่ <a href="https://manager.line.biz/" target="_blank">LINE Official Account Manager</a></li>
+                            <li>เลือก Official Account ของคุณ</li>
+                            <li>ไปที่ "Settings" → "Account information"</li>
+                            <li>ค้นหา "Your user ID"</li>
                         </ol>
                         
-                        <div class="redirect-uri-box">
-                            <strong>Redirect URI สำหรับ LINE Login:</strong><br>
-                            <span id="redirectUriDisplay"></span>
-                        </div>
+                        <h4>วิธีที่ 2: ใช้การตอบกลับอัตโนมัติ</h4>
+                        <ol>
+                            <li>เปิดแอป LINE ในโทรศัพท์</li>
+                            <li>ค้นหาร้านของคุณและเพิ่มเป็นเพื่อน</li>
+                            <li>ส่งข้อความ "userid" ไปให้บอท</li>
+                            <li>ระบบจะตอบกลับด้วย User ID ของคุณ</li>
+                        </ol>
                         
-                        <p><strong>คำแนะนำ:</strong> คัดลอก URL ด้านบนไปใส่ใน LINE Developer Console → Channel → LINE Login → Redirect URLs</p>
+                        <button onclick="alert('หากต้องการใช้วิธีนี้ ต้องตั้งค่า webhook server ก่อน\n\nตอนนี้ให้ใช้วิธีอื่นในการหา User ID')" 
+                                style="background: #06C755; color: white; padding: 10px; border: none; border-radius: 5px; margin: 5px 0;">
+                            <i class="fab fa-line"></i> รับ User ID อัตโนมัติ
+                        </button>
                     </div>
 
                     <div class="config-section">
                         <label for="lineChannelToken">Channel Access Token:</label>
-                        <input type="password" id="lineChannelToken" placeholder="ใส่ Channel Access Token"
-                            style="width: 100%;">
-                        <small>ค้นหาได้ที่ LINE Developers Console > Channel > Messaging API</small>
+                        <input type="password" id="lineChannelToken" placeholder="ใส่ Channel Access Token" style="width: 100%;">
                     </div>
 
                     <div class="config-section">
                         <label for="lineUserId">User ID ของคุณ:</label>
                         <div style="display: flex; gap: 10px;">
                             <input type="text" id="lineUserId" placeholder="ใส่ User ID ของคุณ" style="flex: 1;">
-                            <button onclick="getUserIdWithLineLogin()" style="width: auto; white-space: nowrap;">ดึง User ID อัตโนมัติ</button>
+                            <button onclick="findUserID()" style="white-space: nowrap;">ช่วยฉันหา User ID</button>
                         </div>
                     </div>
 
@@ -497,9 +953,7 @@
             </div>
 
             <h3>การจองล่าสุด</h3>
-            <div id="bookingList">
-                <!-- รายการจองจะแสดงที่นี่ -->
-            </div>
+            <div id="bookingList"></div>
         </div>
     </div>
 
@@ -521,29 +975,6 @@
         </div>
     </div>
 
-    <!-- LINE Login Modal -->
-    <div id="lineLoginModal" class="review-modal">
-        <div class="review-modal-content">
-            <h2>ล็อคอินด้วย LINE</h2>
-            <p>เพื่อดึง User ID อัตโนมัติ กรุณาล็อคอินด้วยบัญชี LINE ของคุณ</p>
-            
-            <div id="manualMethod">
-                <h3>วิธีดึง User ID แบบ Manual</h3>
-                <ol style="text-align: left;">
-                    <li>ไปที่ <a href="https://developers.line.biz/console/" target="_blank">LINE Developers Console</a></li>
-                    <li>เลือก Channel ของคุณ</li>
-                    <li>ไปที่แท็บ "Messaging API"</li>
-                    <li>เลื่อนลงไปที่ส่วน "Webhook"</li>
-                    <li>กดปุ่ม "Verify" (ถ้ายังไม่เคย verify)</li>
-                    <li>ส่งข้อความใดๆ ไปให้บอทของคุณในแอป LINE</li>
-                    <li>User ID จะแสดงในตาราง "Webhook event list"</li>
-                    <li>คัดลอก User ID นั้นมาใส่ในช่องด้านบน</li>
-                </ol>
-            </div>
-            
-            <button onclick="closeLineLoginModal()" style="background: #ff3333; margin-top: 10px;">ปิด</button>
-        </div>
-    </div>
     <script>
         // ตัวแปร global
         const timeSelect = document.getElementById("time");
@@ -557,7 +988,7 @@
         let booking = {};
         let bookingLocked = false;
         let currentRating = 0;
-        let isLoggedIn = false;
+        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || false;
         let holidays = JSON.parse(localStorage.getItem('holidays')) || ["2025-09-01", "2025-09-10"];
         let services = JSON.parse(localStorage.getItem('services')) || [
             "สระ - ไดร์ ผมตรง 60-150 บาท",
@@ -582,7 +1013,57 @@
         window.addEventListener('DOMContentLoaded', (event) => {
             document.getElementById('lineChannelToken').value = lineConfig.channelToken || '';
             document.getElementById('lineUserId').value = lineConfig.userId || '';
+            
+            // ล็อกอินอัตโนมัติหากเคยล็อกอินไว้
+            if (isLoggedIn) {
+                document.body.classList.add('logged-in');
+            }
+            
+            renderHolidays();
+            renderServices();
+            renderPromotions();
+            renderReviews();
         });
+
+        // ฟังก์ชันล็อกอินด่วน
+        function quickLogin() {
+            const password = prompt("กรุณากรอกรหัสผ่านสำหรับเจ้าของร้าน");
+            if (password === "muksalon157") {
+                isLoggedIn = true;
+                document.body.classList.add('logged-in');
+                localStorage.setItem('isLoggedIn', 'true');
+                alert("ล็อคอินสำเร็จในฐานะเจ้าของร้าน");
+                showPage('manage');
+            } else {
+                alert("รหัสผ่านไม่ถูกต้อง");
+            }
+        }
+
+        // ฟังก์ชันล็อคอินสำหรับเจ้าของร้าน
+        function loginWithLine() {
+            const password = prompt("กรุณากรอกรหัสผ่านสำหรับเจ้าของร้าน");
+            
+            if (password === "muksalon123") {
+                isLoggedIn = true;
+                document.body.classList.add('logged-in');
+                localStorage.setItem('isLoggedIn', 'true');
+                alert("ล็อคอินสำเร็จในฐานะเจ้าของร้าน");
+                
+                // โหลดการตั้งค่า LINE ที่บันทึกไว้
+                document.getElementById('lineChannelToken').value = lineConfig.channelToken || '';
+                document.getElementById('lineUserId').value = lineConfig.userId || '';
+            } else {
+                alert("รหัสผ่านไม่ถูกต้อง");
+            }
+        }
+
+        // ฟังก์ชันล็อกเอาท์
+        function logout() {
+            isLoggedIn = false;
+            document.body.classList.remove('logged-in');
+            localStorage.setItem('isLoggedIn', 'false');
+            alert("ล็อกเอาท์เรียบร้อย");
+        }
 
         // ฟังก์ชันแสดงหน้า
         function showPage(page) {
@@ -590,7 +1071,6 @@
             document.getElementById(page).classList.add("activePage");
             document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
 
-            // หาปุ่มที่เกี่ยวข้องกับหน้าและตั้งค่าเป็น active
             const navButtons = document.querySelectorAll("nav button");
             for (let btn of navButtons) {
                 if (btn.textContent === "หน้าหลัก" && page === "home") btn.classList.add("active");
@@ -609,27 +1089,28 @@
             if (page === "manage") renderBookings();
         }
 
-        // ฟังก์ชันเริ่มต้นกระบวนการล็อคอิน LINE
-        function getUserIdWithLineLogin() {
-            const channelToken = document.getElementById('lineChannelToken').value;
+        // ฟังก์ชันช่วยหา User ID
+        function findUserID() {
+            const helpMessage = `
+📋 วิธีหา User ID:
 
-            if (!channelToken) {
-                alert('กรุณากรอก Channel Access Token ก่อน');
-                return;
-            }
+1. ไปที่ LINE Developers Console → Channel ของคุณ
+2. เปิดแท็บ "Messaging API"
+3. เปิดใช้งาน "Use webhook" และกด "Verify"
+4. ส่งข้อความใดๆ ไปให้บอทของคุณในแอป LINE
+5. กลับไปที่หน้า Webhook เพื่อดูตาราง "Webhook event list"
+6. ค้นหาเหตุการณ์ล่าสุดและคัดลอก User ID จากคอลัมน์ "Source"
 
-            // เปิด modal สำหรับล็อคอิน LINE
-            openLineLoginModal();
-        }
+หากไม่พบตาราง:
+1. ไปที่ https://manager.line.biz/
+2. เลือก Official Account ของคุณ
+3. ไปที่ "Settings" → "Account information"
+4. ค้นหา "Your user ID"
 
-        // ฟังก์ชันเปิด modal ล็อคอิน LINE
-        function openLineLoginModal() {
-            document.getElementById("lineLoginModal").style.display = "flex";
-        }
-
-        // ฟังก์ชันปิด modal ล็อคอิน LINE
-        function closeLineLoginModal() {
-            document.getElementById("lineLoginModal").style.display = "none";
+หรือติดต่อการสนับสนุน técnica สำหรับความช่วยเหลือเพิ่มเติม
+            `;
+            
+            alert(helpMessage);
         }
 
         // ฟังก์ชันบันทึกการตั้งค่า LINE
@@ -653,10 +1134,15 @@
             testResult.className = 'test-result';
             testResult.innerHTML = 'กำลังทดสอบการเชื่อมต่อ...';
 
-            sendToLine("🔔 ทดสอบการแจ้งเตือนจากร้านเสริมสวยมุกซาลอน\nระบบแจ้งเตือนทำงานปกติแล้ว")
-                .then(() => {
-                    testResult.classList.add('success');
-                    testResult.innerHTML = '✅ การทดสอบสำเร็จ! ควรมีข้อความแจ้งเตือนไปยัง LINE ของคุณแล้ว';
+            sendLineNotification("🔔 ทดสอบการแจ้งเตือนจากร้านเสริมสวยมุกซาลอน\nระบบแจ้งเตือนทำงานปกติแล้ว")
+                .then((success) => {
+                    if (success) {
+                        testResult.classList.add('success');
+                        testResult.innerHTML = '✅ การทดสอบสำเร็จ! ควรมีข้อความแจ้งเตือนไปยัง LINE ของคุณแล้ว';
+                    } else {
+                        testResult.classList.add('error');
+                        testResult.innerHTML = '❌ การทดสอบล้มเหลว: ไม่สามารถส่งข้อความได้';
+                    }
                 })
                 .catch(error => {
                     testResult.classList.add('error');
@@ -664,11 +1150,11 @@
                 });
         }
 
-        // ฟังก์ชันส่งข้อความผ่าน LINE Messaging API
-        async function sendToLine(message) {
+        // ฟังก์ชันส่งการแจ้งเตือนผ่าน LINE
+        async function sendLineNotification(message) {
             if (!lineConfig.channelToken || !lineConfig.userId) {
-                console.error("ไม่ได้ตั้งค่า LINE Messaging API");
-                throw new Error("ไม่ได้ตั้งค่า LINE Messaging API");
+                console.warn("ไม่ได้ตั้งค่า LINE Messaging API - ข้ามการส่งการแจ้งเตือน");
+                return false;
             }
 
             try {
@@ -692,12 +1178,11 @@
                     throw new Error(`LINE API error: ${response.status} - ${errorText}`);
                 }
 
-                const data = await response.json();
-                console.log("ส่งข้อความผ่าน LINE สำเร็จ:", data);
-                return data;
+                console.log("ส่งข้อความผ่าน LINE สำเร็จ");
+                return true;
             } catch (error) {
                 console.error("เกิดข้อผิดพลาดในการส่งข้อความผ่าน LINE:", error);
-                throw error;
+                return false;
             }
         }
 
@@ -748,13 +1233,14 @@
             document.getElementById("confirmBox").innerHTML = `<p class="message">ลูกค้าได้จองเรียบร้อยแล้ว ขอบคุณค่ะ</p>`;
 
             // บันทึกการจอง
-            bookings.push({
+            const newBooking = {
                 name: booking.name,
                 phone: booking.phone,
                 date: booking.date,
                 time: booking.time,
                 timestamp: new Date().toISOString()
-            });
+            };
+            bookings.push(newBooking);
             localStorage.setItem('bookings', JSON.stringify(bookings));
 
             // ส่งการแจ้งเตือนผ่าน LINE
@@ -764,9 +1250,14 @@
 วันที่: ${booking.date}
 เวลา: ${booking.time}`;
 
-            sendToLine(bookingMessage)
-                .then(() => console.log("ส่งการแจ้งเตือนการจองคิวผ่าน LINE สำเร็จ"))
-                .catch(error => console.error("ไม่สามารถส่งการแจ้งเตือนผ่าน LINE ได้:", error));
+            sendLineNotification(bookingMessage)
+                .then(success => {
+                    if (success) {
+                        console.log("ส่งการแจ้งเตือนการจองคิวผ่าน LINE สำเร็จ");
+                    } else {
+                        console.warn("ไม่สามารถส่งการแจ้งเตือนผ่าน LINE ได้");
+                    }
+                });
 
             // หลังจากจองสำเร็จ ให้แสดงฟอร์มรีวิว
             setTimeout(() => {
@@ -795,9 +1286,14 @@
 วันที่: ${booking.date}
 เวลา: ${booking.time}`;
 
-            sendToLine(cancelMessage)
-                .then(() => console.log("ส่งการแจ้งเตือนการยกเลิกการจองผ่าน LINE สำเร็จ"))
-                .catch(error => console.error("ไม่สามารถส่งการแจ้งเตือนผ่าน LINE ได้:", error));
+            sendLineNotification(cancelMessage)
+                .then(success => {
+                    if (success) {
+                        console.log("ส่งการแจ้งเตือนการยกเลิกการจองผ่าน LINE สำเร็จ");
+                    } else {
+                        console.warn("ไม่สามารถส่งการแจ้งเตือนผ่าน LINE ได้");
+                    }
+                });
 
             setTimeout(() => {
                 showPage("home");
@@ -860,30 +1356,31 @@
             }, 3000);
         }
 
-        // ฟังก์ชันล็อคอินด้วย LINE
-        function loginWithLine() {
-            // ในทางปฏิบัติควรใช้ LINE Login API
-            // ตัวอย่างนี้ใช้การจำลองสำหรับการทดสอบ
-            const lineUserId = prompt("กรุณากรอก LINE User ID ของคุณ (สำหรับการทดสอบ)");
-            if (lineUserId) {
-                // ตรวจสอบว่าเป็นเจ้าของร้านหรือไม่ (ในที่นี้ใช้การตรวจสอบแบบง่าย)
-                if (lineUserId === "muksalon157") { // เปลี่ยนเป็น ID จริงของเจ้าของร้าน
-                    isLoggedIn = true;
-                    document.body.classList.add('logged-in');
-                    alert("ล็อคอินสำเร็จ");
-                } else {
-                    alert("คุณไม่มีสิทธิ์เข้าถึงส่วนนี้");
-                }
-            }
-        }
+// ฟังก์ชันล็อคอินสำหรับเจ้าของร้าน
+function loginWithLine() {
+    const password = prompt("กรุณากรอกรหัสผ่านสำหรับเจ้าของร้าน");
+    
+    // รหัสผ่านสำหรับเจ้าของร้าน
+    if (password === "muksalon157") {
+        isLoggedIn = true;
+        document.body.classList.add('logged-in');
+        alert("ล็อคอินสำเร็จในฐานะเจ้าของร้าน");
+        
+        // โหลดการตั้งค่า LINE ที่บันทึกไว้
+        document.getElementById('lineChannelToken').value = lineConfig.channelToken || '';
+        document.getElementById('lineUserId').value = lineConfig.userId || '';
+    } else {
+        alert("รหัสผ่านไม่ถูกต้อง");
+    }
+}
 
-        // ฟังก์ชันล็อกเอาท์
-        function logout() {
-            isLoggedIn = false;
-            document.body.classList.remove('logged-in');
-            alert("ล็อกเอาท์เรียบร้อย");
-        }
-
+// ฟังก์ชันล็อกเอาท์
+function logout() {
+    isLoggedIn = false;
+    document.body.classList.remove('logged-in');
+    alert("ล็อกเอาท์เรียบร้อย");
+    showPage('home');
+}
         // ฟังก์ชันแสดงวันหยุด
         function renderHolidays() {
             const ul = document.getElementById("holidayList");
@@ -1078,7 +1575,7 @@
             }
         }
 
-        // รีเซ็ตฟอร์ม
+        // รีเซ็ตฟอร์м
         function resetForm() {
             document.getElementById("promoTitle").value = "";
             document.getElementById("promoDescription").value = "";
@@ -1238,21 +1735,36 @@
             renderPromotions();
             renderReviews();
 
-            // เพิ่ม event listener สำหรับคลิกนอก modal เพื่อปิด
-            document.getElementById("reviewModal").addEventListener("click", function (e) {
-                if (e.target === this) {
-                    closeReviewModal();
-                    showPage("home");
-                }
-            });
-            
-            document.getElementById("lineLoginModal").addEventListener("click", function (e) {
-                if (e.target === this) {
-                    closeLineLoginModal();
-                }
-            });
+    // เพิ่ม event listener สำหรับคลิกนอก modal เพื่อปิด
+        document.getElementById("reviewModal").addEventListener("click", function (e) {
+            if (e.target === this) {
+                closeReviewModal();
+                showPage("home");
+            }
+        });
+
+        // สร้างอนุภาคน่ารัก
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = `${Math.random() * 15 + 5}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.backgroundColor = `rgba(255, 255, 255, ${Math.random() * 0.5 + 0.3})`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // เริ่มสร้างอนุภาคเมื่อหน้าเว็บโหลด
+        window.onload = function() {
+            createParticles();
+        };
         };
     </script>
 </body>
-
 </html>
