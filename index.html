@@ -344,6 +344,7 @@
 
         .logout-btn {
             background: #ff3333;
+            margin-left: 10px;
         }
 
         .line-icon {
@@ -363,6 +364,8 @@
             position: absolute;
             right: 15px;
             top: 15px;
+            display: flex;
+            align-items: center;
         }
 
         .review-modal {
@@ -661,22 +664,64 @@
                 font-size: 1.8rem;
             }
             
+            nav {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding: 10px;
+                justify-content: flex-start;
+            }
+            
             nav button {
                 padding: 12px 18px;
                 font-size: 1rem;
+                white-space: nowrap;
+                flex-shrink: 0;
             }
             
             .box {
                 padding: 20px;
+                width: 95%;
             }
             
             input, select, button, textarea {
                 font-size: 16px;
                 padding: 14px;
+                width: 95%;
             }
             
             .cute-light {
                 display: none;
+            }
+            
+            .admin-panel {
+                position: relative;
+                right: auto;
+                top: auto;
+                margin-top: 10px;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .admin-panel button {
+                margin: 5px;
+                padding: 10px 15px;
+            }
+            
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .header-content {
+                width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            .overlay {
+                display: none !important;
             }
         }
 
@@ -689,10 +734,6 @@
                 font-size: 1.6rem;
             }
             
-            nav {
-                flex-wrap: wrap;
-            }
-            
             nav button {
                 padding: 10px 14px;
                 margin: 3px;
@@ -702,6 +743,15 @@
             .box {
                 padding: 15px;
                 margin: 15px auto;
+            }
+            
+            .admin-panel {
+                flex-direction: column;
+            }
+            
+            .logout-btn {
+                margin-left: 0;
+                margin-top: 5px;
             }
         }
 
@@ -775,22 +825,17 @@
             align-items: center;
             justify-content: center;
         }
-     </style>
+    </style>
 </head>
 <body>
-    <div class="cute-light" style="top: 20%; left: 10%;"></div>
-    <div class="cute-light" style="top: 60%; left: 70%; width: 200px; height: 200px; animation-delay: -5s;"></div>
     <div class="particles" id="particles"></div>
-
+    
     <!-- ปุ่มล็อกอินด่วน -->
     <div class="quick-login">
         <button class="quick-login-btn" onclick="quickLogin()">🔑</button>
     </div>
 
     <header>
-        <div class="header-content">
-            <h1 class="cute-float">ร้านเสริมสวยมุกซาลอน ยินดีให้บริการค่ะ</h1>
-        </div>
         <div class="admin-panel">
             <button id="loginBtn" class="login-btn" onclick="loginWithLine()">
                 <span class="line-icon">L</span> ล็อคอินสำหรับเจ้าของร้าน
@@ -800,160 +845,142 @@
                 <button class="logout-btn" onclick="logout()">ล็อกเอาท์</button>
             </div>
         </div>
+        
+        <div class="header-content">
+            <h1 class="cute-float">ร้านเสริมสวยมุกซาลอน ยินดีให้บริการค่ะ</h1>
+        </div>
     </header>
-
-    <nav>
+    
+    <nav id="mainNav">
         <button class="active" onclick="showPage('home')">หน้าหลัก</button>
         <button onclick="showPage('booking')">จองคิว</button>
         <button onclick="showPage('promo')">โปรโมชัน</button>
         <button onclick="showPage('reviews')">รีวิว</button>
     </nav>
 
-    <!-- หน้า Home -->
-    <div id="home" class="page activePage">
-        <div class="box">
-            <h2>บริการของทางร้าน</h2>
-            <ul id="servicesList" style="text-align:left; list-style-type: none; padding: 0;"></ul>
-            <div class="admin-only">
-                <h3>จัดการบริการ</h3>
-                <input type="text" id="newServiceName" placeholder="ชื่อบริการ">
-                <input type="text" id="newServicePrice" placeholder="ราคา">
-                <button onclick="addService()">เพิ่มบริการ</button>
-            </div>
-
-            <h3>วันหยุดของร้าน</h3>
-            <ul id="holidayList" style="color:red; text-align:left; list-style-type: none; padding: 0;"></ul>
-            <div class="admin-only">
-                <input type="date" id="newHoliday">
-                <button onclick="addHoliday()">เพิ่มวันหยุด</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- หน้าโปรโมชัน -->
-    <div id="promo" class="page">
-        <div class="box">
-            <h2>โปรโมชั่น</h2>
-            <div id="promoContent"></div>
-
-            <div class="admin-only">
-                <h3>จัดการโปรโมชัน</h3>
-                <input type="text" id="promoTitle" placeholder="หัวข้อโปรโมชัน">
-                <textarea id="promoDescription" placeholder="รายละเอียดโปรโมชัน" rows="3"></textarea>
-                <input type="file" id="promoImageFile" accept="image/*">
-                <button onclick="addPromo()">เพิ่มโปรโมชัน</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- หน้า Booking -->
-    <div id="booking" class="page">
-        <div class="box" id="formBox">
-            <h2>กรอกข้อมูลลูกค้า</h2>
-            <input type="text" id="name" placeholder="ชื่อของคุณ">
-            <input type="tel" id="phone" placeholder="เบอร์โทรศัพท์">
-            <button onclick="goToCalendar()">ยืนยัน</button>
-        </div>
-
-        <div class="box" id="calendarBox" style="display:none;">
-            <h2>เลือกวันและเวลา</h2>
-            <input type="date" id="date">
-            <select id="time"></select>
-            <button onclick="reviewBooking()">ถัดไป</button>
-        </div>
-
-        <div class="box" id="confirmBox" style="display:none;">
-            <h2>ข้อมูลการจอง</h2>
-            <p id="bookingInfo"></p>
-            <button onclick="lockBooking()">ยืนยันการจอง</button>
-            <button onclick="editBooking()">แก้ไข</button>
-            <button onclick="cancelBooking()">ยกเลิกการจอง</button>
-        </div>
-    </div>
-
-    <!-- หน้ารีวิว -->
-    <div id="reviews" class="page">
-        <div class="box">
-            <h2>รีวิวจากลูกค้า</h2>
-            <div id="reviewsList"></div>
-        </div>
-    </div>
-
-    <!-- หน้าจัดการร้าน -->
-    <div id="manage" class="page">
-        <div class="box">
-            <h2>จัดการร้าน</h2>
-            <button onclick="showPage('home')">จัดการบริการและวันหยุด</button>
-            <button onclick="showPage('promo')">จัดการโปรโมชัน</button>
-
+    <div class="container">
+        <!-- หน้า Home -->
+        <div id="home" class="page activePage">
             <div class="box">
-                <h2>จัดการพื้นหลังร้าน</h2>
-                <input type="file" id="bgUpload" accept="image/*" style="display: none;" onchange="uploadBackground(event)">
-                <button onclick="document.getElementById('bgUpload').click()">อัปโหลดพื้นหลังใหม่</button>
-                <button onclick="removeBackground()" class="delete-btn">ลบพื้นหลัง</button>
-            </div>
+                <h2>บริการของทางร้าน</h2>
+                <ul id="servicesList"></ul>
+                <div class="admin-only">
+                    <h3>จัดการบริการ</h3>
+                    <input type="text" id="newServiceName" placeholder="ชื่อบริการ">
+                    <input type="text" id="newServicePrice" placeholder="ราคา">
+                    <button onclick="addService()">เพิ่มบริการ</button>
+                </div>
 
-            <div class="box">
-                <h2>ตั้งค่าแจ้งเตือน LINE</h2>
-                <div class="line-config">
-                    <div class="instructions">
-                        <h3>ขั้นตอนการตั้งค่า LINE Messaging API</h3>
-                        <ol>
-                            <li>ไปที่ <a href="https://developers.line.biz/console/" target="_blank">LINE Developers Console</a></li>
-                            <li>เลือก Channel ของคุณ (ประเภท Messaging API)</li>
-                            <li>ไปที่แท็บ "Messaging API"</li>
-                            <li>คัดลอก "Channel Access Token" วางในช่องด้านล่าง</li>
-                        </ol>
-                    </div>
-
-                    <div class="userid-help">
-                        <h4>📋 วิธีหา User ID</h4>
-                        <p><strong>หากไม่พบตาราง Webhook event list ให้ใช้วิธีใดวิธีหนึ่งต่อไปนี้:</strong></p>
-                        
-                        <h4>วิธีที่ 1: ใช้ LINE Official Account Manager</h4>
-                        <ol>
-                            <li>ไปที่ <a href="https://manager.line.biz/" target="_blank">LINE Official Account Manager</a></li>
-                            <li>เลือก Official Account ของคุณ</li>
-                            <li>ไปที่ "Settings" → "Account information"</li>
-                            <li>ค้นหา "Your user ID"</li>
-                        </ol>
-                        
-                        <h4>วิธีที่ 2: ใช้การตอบกลับอัตโนมัติ</h4>
-                        <ol>
-                            <li>เปิดแอป LINE ในโทรศัพท์</li>
-                            <li>ค้นหาร้านของคุณและเพิ่มเป็นเพื่อน</li>
-                            <li>ส่งข้อความ "userid" ไปให้บอท</li>
-                            <li>ระบบจะตอบกลับด้วย User ID ของคุณ</li>
-                        </ol>
-                        
-                        <button onclick="alert('หากต้องการใช้วิธีนี้ ต้องตั้งค่า webhook server ก่อน\n\nตอนนี้ให้ใช้วิธีอื่นในการหา User ID')" 
-                                style="background: #06C755; color: white; padding: 10px; border: none; border-radius: 5px; margin: 5px 0;">
-                            <i class="fab fa-line"></i> รับ User ID อัตโนมัติ
-                        </button>
-                    </div>
-
-                    <div class="config-section">
-                        <label for="lineChannelToken">Channel Access Token:</label>
-                        <input type="password" id="lineChannelToken" placeholder="ใส่ Channel Access Token" style="width: 100%;">
-                    </div>
-
-                    <div class="config-section">
-                        <label for="lineUserId">User ID ของคุณ:</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" id="lineUserId" placeholder="ใส่ User ID ของคุณ" style="flex: 1;">
-                            <button onclick="findUserID()" style="white-space: nowrap;">ช่วยฉันหา User ID</button>
-                        </div>
-                    </div>
-
-                    <button onclick="saveLineConfig()">บันทึกการตั้งค่า</button>
-                    <button onclick="testLineConnection()" style="background: #2196F3;">ทดสอบการเชื่อมต่อ</button>
-
-                    <div id="testResult" class="test-result"></div>
+                <h3>วันหยุดของร้าน</h3>
+                <ul id="holidayList"></ul>
+                <div class="admin-only">
+                    <input type="date" id="newHoliday">
+                    <button onclick="addHoliday()">เพิ่มวันหยุด</button>
                 </div>
             </div>
+        </div>
 
-            <h3>การจองล่าสุด</h3>
-            <div id="bookingList"></div>
+        <!-- หน้าโปรโมชัน -->
+        <div id="promo" class="page">
+            <div class="box">
+                <h2>โปรโมชั่น</h2>
+                <div id="promoContent"></div>
+
+                <div class="admin-only">
+                    <h3>จัดการโปรโมชัน</h3>
+                    <input type="text" id="promoTitle" placeholder="หัวข้อโปรโมชัน">
+                    <textarea id="promoDescription" placeholder="รายละเอียดโปรโมชัน" rows="3"></textarea>
+                    <input type="file" id="promoImageFile" accept="image/*">
+                    <button onclick="addPromo()">เพิ่มโปรโมชัน</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- หน้า Booking -->
+        <div id="booking" class="page">
+            <div class="box" id="formBox">
+                <h2>กรอกข้อมูลลูกค้า</h2>
+                <input type="text" id="name" placeholder="ชื่อของคุณ">
+                <input type="tel" id="phone" placeholder="เบอร์โทรศัพท์">
+                <button onclick="goToCalendar()">ยืนยัน</button>
+            </div>
+
+            <div class="box" id="calendarBox" style="display:none;">
+                <h2>เลือกวันและเวลา</h2>
+                <input type="date" id="date">
+                <select id="time"></select>
+                <button onclick="reviewBooking()">ถัดไป</button>
+            </div>
+
+            <div class="box" id="confirmBox" style="display:none;">
+                <h2>ข้อมูลการจอง</h2>
+                <p id="bookingInfo"></p>
+                <button onclick="lockBooking()">ยืนยันการจอง</button>
+                <button onclick="editBooking()">แก้ไข</button>
+                <button onclick="cancelBooking()">ยกเลิกการจอง</button>
+            </div>
+        </div>
+
+        <!-- หน้ารีวิว -->
+        <div id="reviews" class="page">
+            <div class="box">
+                <h2>รีวิวจากลูกค้า</h2>
+                <div id="reviewsList"></div>
+            </div>
+        </div>
+
+        <!-- หน้าจัดการร้าน -->
+        <div id="manage" class="page">
+            <div class="box">
+                <h2>จัดการร้าน</h2>
+                <button onclick="showPage('home')">จัดการบริการและวันหยุด</button>
+                <button onclick="showPage('promo')">จัดการโปรโมชัน</button>
+
+                <div class="box">
+                    <h2>จัดการพื้นหลังร้าน</h2>
+                    <input type="file" id="bgUpload" accept="image/*" style="display: none;" onchange="uploadBackground(event)">
+                    <button onclick="document.getElementById('bgUpload').click()">อัปโหลดพื้นหลังใหม่</button>
+                    <button onclick="removeBackground()" class="delete-btn">ลบพื้นหลัง</button>
+                </div>
+
+                <div class="box">
+                    <h2>ตั้งค่าแจ้งเตือน LINE</h2>
+                    <div class="line-config">
+                        <div class="instructions">
+                            <h3>ขั้นตอนการตั้งค่า LINE Messaging API</h3>
+                            <ol>
+                                <li>ไปที่ <a href="https://developers.line.biz/console/" target="_blank">LINE Developers Console</a></li>
+                                <li>สร้าง Provider และ Channel (เลือกประเภท Messaging API)</li>
+                                <li>ไปที่แท็บ "Messaging API"</li>
+                                <li>คัดลอก "Channel Access Token" วางในช่องด้านล่าง</li>
+                                <li>เปิดใช้งาน Webhook</li>
+                            </ol>
+                        </div>
+
+                        <div class="config-section">
+                            <label for="lineChannelToken">Channel Access Token:</label>
+                            <input type="password" id="lineChannelToken" placeholder="ใส่ Channel Access Token" style="width: 100%;">
+                        </div>
+
+                        <div class="config-section">
+                            <label for="lineUserId">User ID ของคุณ:</label>
+                            <input type="text" id="lineUserId" placeholder="ใส่ User ID ของคุณ" style="width: 100%;">
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">
+                                หมายเหตุ: User ID สามารถหาได้โดยการส่งข้อความไปยัง LINE Official Account ของคุณ 
+                                แล้วดูจากเว็บฮุค (Webhook) ใน LINE Developers Console
+                            </p>
+                        </div>
+
+                        <button onclick="saveLineConfig()">บันทึกการตั้งค่า</button>
+                        <button onclick="testLineConnection()" style="background: #2196F3;">ทดสอบการเชื่อมต่อ</button>
+
+                        <div id="testResult" class="test-result"></div>
+                    </div>
+                </div>
+
+                <h3>การจองล่าสุด</h3>
+                <div id="bookingList"></div>
+            </div>
         </div>
     </div>
 
@@ -977,14 +1004,6 @@
 
     <script>
         // ตัวแปร global
-        const timeSelect = document.getElementById("time");
-        for (let h = 8; h <= 20; h++) {
-            let option = document.createElement("option");
-            option.value = `${h}:00`;
-            option.textContent = `${h}:00`;
-            timeSelect.appendChild(option);
-        }
-
         let booking = {};
         let bookingLocked = false;
         let currentRating = 0;
@@ -1006,31 +1025,12 @@
             userId: ''
         };
 
-        // แสดง Redirect URI
-        document.getElementById('redirectUriDisplay').textContent = window.location.href;
-
-        // โหลดการตั้งค่า LINE เมื่อหน้าเว็บโหลด
-        window.addEventListener('DOMContentLoaded', (event) => {
-            document.getElementById('lineChannelToken').value = lineConfig.channelToken || '';
-            document.getElementById('lineUserId').value = lineConfig.userId || '';
-            
-            // ล็อกอินอัตโนมัติหากเคยล็อกอินไว้
-            if (isLoggedIn) {
-                document.body.classList.add('logged-in');
-            }
-            
-            renderHolidays();
-            renderServices();
-            renderPromotions();
-            renderReviews();
-        });
-
         // ฟังก์ชันล็อกอินด่วน
         function quickLogin() {
             const password = prompt("กรุณากรอกรหัสผ่านสำหรับเจ้าของร้าน");
             if (password === "muksalon157") {
                 isLoggedIn = true;
-                document.body.classList.add('logged-in');
+                updateLoginUI();
                 localStorage.setItem('isLoggedIn', 'true');
                 alert("ล็อคอินสำเร็จในฐานะเจ้าของร้าน");
                 showPage('manage');
@@ -1043,9 +1043,9 @@
         function loginWithLine() {
             const password = prompt("กรุณากรอกรหัสผ่านสำหรับเจ้าของร้าน");
             
-            if (password === "muksalon123") {
+            if (password === "muksalon157") {
                 isLoggedIn = true;
-                document.body.classList.add('logged-in');
+                updateLoginUI();
                 localStorage.setItem('isLoggedIn', 'true');
                 alert("ล็อคอินสำเร็จในฐานะเจ้าของร้าน");
                 
@@ -1057,12 +1057,26 @@
             }
         }
 
+        // ฟังก์ชันอัพเดต UI หลังจากล็อกอิน
+        function updateLoginUI() {
+            if (isLoggedIn) {
+                document.body.classList.add('logged-in');
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('adminMenu').style.display = 'flex';
+            } else {
+                document.body.classList.remove('logged-in');
+                document.getElementById('loginBtn').style.display = 'flex';
+                document.getElementById('adminMenu').style.display = 'none';
+            }
+        }
+
         // ฟังก์ชันล็อกเอาท์
         function logout() {
             isLoggedIn = false;
-            document.body.classList.remove('logged-in');
+            updateLoginUI();
             localStorage.setItem('isLoggedIn', 'false');
             alert("ล็อกเอาท์เรียบร้อย");
+            showPage('home');
         }
 
         // ฟังก์ชันแสดงหน้า
@@ -1087,30 +1101,6 @@
             if (page === "promo") renderPromotions();
             if (page === "reviews") renderReviews();
             if (page === "manage") renderBookings();
-        }
-
-        // ฟังก์ชันช่วยหา User ID
-        function findUserID() {
-            const helpMessage = `
-📋 วิธีหา User ID:
-
-1. ไปที่ LINE Developers Console → Channel ของคุณ
-2. เปิดแท็บ "Messaging API"
-3. เปิดใช้งาน "Use webhook" และกด "Verify"
-4. ส่งข้อความใดๆ ไปให้บอทของคุณในแอป LINE
-5. กลับไปที่หน้า Webhook เพื่อดูตาราง "Webhook event list"
-6. ค้นหาเหตุการณ์ล่าสุดและคัดลอก User ID จากคอลัมน์ "Source"
-
-หากไม่พบตาราง:
-1. ไปที่ https://manager.line.biz/
-2. เลือก Official Account ของคุณ
-3. ไปที่ "Settings" → "Account information"
-4. ค้นหา "Your user ID"
-
-หรือติดต่อการสนับสนุน técnica สำหรับความช่วยเหลือเพิ่มเติม
-            `;
-            
-            alert(helpMessage);
         }
 
         // ฟังก์ชันบันทึกการตั้งค่า LINE
@@ -1195,6 +1185,16 @@
             document.getElementById("name").value = "";
             document.getElementById("phone").value = "";
             document.getElementById("date").value = "";
+            
+            // เตรียมตัวเลือกเวลา
+            const timeSelect = document.getElementById("time");
+            timeSelect.innerHTML = "";
+            for (let h = 8; h <= 20; h++) {
+                let option = document.createElement("option");
+                option.value = `${h}:00`;
+                option.textContent = `${h}:00`;
+                timeSelect.appendChild(option);
+            }
         }
 
         // ฟังก์ชันไปยังหน้าปฏิทิน
@@ -1308,7 +1308,7 @@
             });
         }
 
-        // ฟังก์ชันแสดง modal รีวิว
+        // ฟังก์ชันแสดง modal รีวิв
         function showReviewModal() {
             const modal = document.getElementById("reviewModal");
             modal.style.display = "flex";
@@ -1356,35 +1356,16 @@
             }, 3000);
         }
 
-// ฟังก์ชันล็อคอินสำหรับเจ้าของร้าน
-function loginWithLine() {
-    const password = prompt("กรุณากรอกรหัสผ่านสำหรับเจ้าของร้าน");
-    
-    // รหัสผ่านสำหรับเจ้าของร้าน
-    if (password === "muksalon157") {
-        isLoggedIn = true;
-        document.body.classList.add('logged-in');
-        alert("ล็อคอินสำเร็จในฐานะเจ้าของร้าน");
-        
-        // โหลดการตั้งค่า LINE ที่บันทึกไว้
-        document.getElementById('lineChannelToken').value = lineConfig.channelToken || '';
-        document.getElementById('lineUserId').value = lineConfig.userId || '';
-    } else {
-        alert("รหัสผ่านไม่ถูกต้อง");
-    }
-}
-
-// ฟังก์ชันล็อกเอาท์
-function logout() {
-    isLoggedIn = false;
-    document.body.classList.remove('logged-in');
-    alert("ล็อกเอาท์เรียบร้อย");
-    showPage('home');
-}
         // ฟังก์ชันแสดงวันหยุด
         function renderHolidays() {
             const ul = document.getElementById("holidayList");
             ul.innerHTML = "";
+            
+            if (holidays.length === 0) {
+                ul.innerHTML = "<li>ไม่มีวันหยุด</li>";
+                return;
+            }
+            
             holidays.forEach((day, index) => {
                 let li = document.createElement("li");
                 li.className = "holiday-item";
@@ -1392,15 +1373,17 @@ function logout() {
                 let span = document.createElement("span");
                 span.textContent = day;
 
-                let deleteBtn = document.createElement("button");
-                deleteBtn.textContent = "ลบ";
-                deleteBtn.className = "delete-btn";
-                deleteBtn.onclick = function () { deleteHoliday(index); };
-
                 li.appendChild(span);
+                
+                // เฉพาะเจ้าของร้านเท่านั้นที่เห็นปุ่มลบ
                 if (isLoggedIn) {
+                    let deleteBtn = document.createElement("button");
+                    deleteBtn.textContent = "ลบ";
+                    deleteBtn.className = "delete-btn";
+                    deleteBtn.onclick = function () { deleteHoliday(index); };
                     li.appendChild(deleteBtn);
                 }
+                
                 ul.appendChild(li);
             });
         }
@@ -1409,6 +1392,12 @@ function logout() {
         function renderServices() {
             const ul = document.getElementById("servicesList");
             ul.innerHTML = "";
+            
+            if (services.length === 0) {
+                ul.innerHTML = "<li>ไม่มีบริการ</li>";
+                return;
+            }
+            
             services.forEach((service, index) => {
                 let li = document.createElement("li");
                 li.className = "service-item";
@@ -1416,15 +1405,17 @@ function logout() {
                 let span = document.createElement("span");
                 span.textContent = service;
 
-                let deleteBtn = document.createElement("button");
-                deleteBtn.textContent = "ลบ";
-                deleteBtn.className = "delete-btn";
-                deleteBtn.onclick = function () { deleteService(index); };
-
                 li.appendChild(span);
+                
+                // เฉพาะเจ้าของร้านเท่านั้นที่เห็นปุ่มลบ
                 if (isLoggedIn) {
+                    let deleteBtn = document.createElement("button");
+                    deleteBtn.textContent = "ลบ";
+                    deleteBtn.className = "delete-btn";
+                    deleteBtn.onclick = function () { deleteService(index); };
                     li.appendChild(deleteBtn);
                 }
+                
                 ul.appendChild(li);
             });
         }
@@ -1516,15 +1507,17 @@ function logout() {
                     ${promo.image ? `<img src="${promo.image}" alt="${promo.title}" style="max-width: 100%;">` : ''}
                 `;
 
-                const deleteBtn = document.createElement("button");
-                deleteBtn.textContent = "ลบโปรโมชัน";
-                deleteBtn.className = "delete-btn";
-                deleteBtn.onclick = function () { deletePromo(index); };
-
                 promoDiv.appendChild(promoContent);
+                
+                // เฉพาะเจ้าของร้านเท่านั้นที่เห็นปุ่มลบ
                 if (isLoggedIn) {
+                    const deleteBtn = document.createElement("button");
+                    deleteBtn.textContent = "ลบโปรโมชัน";
+                    deleteBtn.className = "delete-btn";
+                    deleteBtn.onclick = function () { deletePromo(index); };
                     promoDiv.appendChild(deleteBtn);
                 }
+                
                 container.appendChild(promoDiv);
             });
         }
@@ -1546,7 +1539,7 @@ function logout() {
                 reader.onload = function (e) {
                     promotions.push({ title, description, image: e.target.result });
                     localStorage.setItem('promotions', JSON.stringify(promotions));
-                    resetForm();
+                    resetPromoForm();
                     renderPromotions();
                     alert("เพิ่มโปรโมชันเรียบร้อยแล้ว");
                 };
@@ -1554,7 +1547,7 @@ function logout() {
             } else {
                 promotions.push({ title, description, image: "" });
                 localStorage.setItem('promotions', JSON.stringify(promotions));
-                resetForm();
+                resetPromoForm();
                 renderPromotions();
                 alert("เพิ่มโปรโมชันเรียบร้อยแล้ว");
             }
@@ -1575,8 +1568,8 @@ function logout() {
             }
         }
 
-        // รีเซ็ตฟอร์м
-        function resetForm() {
+        // รีเซ็ตฟอร์มโปรโมชัน
+        function resetPromoForm() {
             document.getElementById("promoTitle").value = "";
             document.getElementById("promoDescription").value = "";
             document.getElementById("promoImageFile").value = "";
@@ -1681,7 +1674,6 @@ function logout() {
                     bookingDiv.appendChild(deleteBtn);
                 }
 
-                bookingDiv.innerHTML += "<hr>";
                 container.appendChild(bookingDiv);
             });
         }
@@ -1714,6 +1706,7 @@ function logout() {
                 reader.readAsDataURL(file);
             }
         }
+            
 
         // ฟังก์ชั่นลบพื้นหลัง
         function removeBackground() {
@@ -1721,27 +1714,6 @@ function logout() {
             document.body.style.backgroundImage = '';
             alert("ลบพื้นหลังเรียบร้อยแล้ว");
         }
-
-        // โหลดพื้นหลังเมื่อเริ่มต้นแอป
-        const savedBg = localStorage.getItem('backgroundImage');
-        if (savedBg) {
-            document.body.style.backgroundImage = `url(${savedBg})`;
-        }
-
-        // โหลดข้อมูลเมื่อเริ่มต้น
-        window.onload = function () {
-            renderHolidays();
-            renderServices();
-            renderPromotions();
-            renderReviews();
-
-    // เพิ่ม event listener สำหรับคลิกนอก modal เพื่อปิด
-        document.getElementById("reviewModal").addEventListener("click", function (e) {
-            if (e.target === this) {
-                closeReviewModal();
-                showPage("home");
-            }
-        });
 
         // สร้างอนุภาคน่ารัก
         function createParticles() {
@@ -1760,11 +1732,55 @@ function logout() {
             }
         }
 
-        // เริ่มสร้างอนุภาคเมื่อหน้าเว็บโหลด
+        // เริ่มต้นเมื่อหน้าเว็บโหลด
         window.onload = function() {
+            // โหลดการตั้งค่า LINE
+            document.getElementById('lineChannelToken').value = lineConfig.channelToken || '';
+            document.getElementById('lineUserId').value = lineConfig.userId || '';
+            
+            // ล็อกอินอัตโนมัติหากเคยล็อกอินไว้
+            if (isLoggedIn) {
+                document.body.classList.add('logged-in');
+            }
+            
+            // โหลดพื้นหลังที่บันทึกไว้
+            const savedBg = localStorage.getItem('backgroundImage');
+            if (savedBg) {
+                document.body.style.backgroundImage = `url(${savedBg})`;
+            }
+            
+            // เตรียมตัวเลือกเวลา
+            const timeSelect = document.getElementById("time");
+            for (let h = 8; h <= 20; h++) {
+                let option = document.createElement("option");
+                option.value = `${h}:00`;
+                option.textContent = `${h}:00`;
+                timeSelect.appendChild(option);
+            }
+            
+            // โหลดข้อมูล
+            renderHolidays();
+            renderServices();
+            renderPromotions();
+            renderReviews();
+            
+            // สร้างอนุภาค
             createParticles();
-        };
-        };
+            
+            // เพิ่ม event listener สำหรับคลิกนอก modal เพื่อปิด
+            document.getElementById("reviewModal").addEventListener("click", function (e) {
+                if (e.target === this) {
+                    closeReviewModal();
+                    showPage("home");
+                }
+            });
+            
+            // ตรวจสอบว่าผู้ใช้ใช้มือถือหรือไม่
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                document.body.classList.add('mobile-device');
+            }
+        }
+
     </script>
 </body>
 </html>
